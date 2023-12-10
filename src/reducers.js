@@ -5,14 +5,22 @@ const reducer = (state, action) => {
         case 'add':
             const newUser={
                 id: uuidv4(),
-                name: action.name
+                name: action.name,
             };
-            return [...state,newUser];
+            return{
+                ...state,
+                users: [...state.users,newUser],
+                balance:state.balance+10,
+            };
         case "fuel":
-            if(action.balance>50){
-                action.setBalance(action.balance-50)
+            if(action.balance>=50){
+                return{
+                ...state,
+                balance: state.balance-50,
+                }
+            }else{
+                return state;
             }
-        return state;
         default: 
         return state;
     }
